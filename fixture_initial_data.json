@@ -1,0 +1,226 @@
+[
+  {
+    "model": "users.user",
+    "pk": 1,
+    "fields": {
+      "email": "ivan@example.com"
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 2,
+    "fields": {
+      "email": "maria@example.com"
+    }
+  },
+  {
+    "model": "materials.course",
+    "pk": 1,
+    "fields": {
+      "title": "Python для начинающих",
+      "picture": null,
+      "description": "Изучение основ Python."
+    }
+  },
+  {
+    "model": "materials.course",
+    "pk": 2,
+    "fields": {
+      "title": "Django для веб-разработки",
+      "picture": null,
+      "description": "Создание веб-приложений на Django."
+    }
+  },
+  {
+    "model": "materials.course",
+    "pk": 3,
+    "fields": {
+      "title": "Data Science с нуля",
+      "picture": null,
+      "description": "Машинное обучение и анализ данных."
+    }
+  },
+  {
+    "model": "materials.lesson",
+    "pk": 1,
+    "fields": {
+      "title": "Введение в Python",
+      "description": "",
+      "picture": null,
+      "material_link": "https://youtube.com/example1",
+      "course": 1
+    }
+  },
+  {
+    "model": "materials.lesson",
+    "pk": 2,
+    "fields": {
+      "title": "Типы данных",
+      "description": "",
+      "picture": null,
+      "material_link": "https://youtube.com/example2",
+      "course": 1
+    }
+  },
+  {
+    "model": "materials.lesson",
+    "pk": 3,
+    "fields": {
+      "title": "Условия и циклы",
+      "description": "",
+      "picture": null,
+      "material_link": "https://youtube.com/example3",
+      "course": 1
+    }
+  },
+  {
+    "model": "materials.lesson",
+    "pk": 4,
+    "fields": {
+      "title": "Введение в Django",
+      "description": "",
+      "picture": null,
+      "material_link": "https://youtube.com/example4",
+      "course": 2
+    }
+  },
+  {
+    "model": "materials.lesson",
+    "pk": 5,
+    "fields": {
+      "title": "Модели Django",
+      "description": "",
+      "picture": null,
+      "material_link": "https://youtube.com/example5",
+      "course": 2
+    }
+  },
+  {
+    "model": "materials.lesson",
+    "pk": 6,
+    "fields": {
+      "title": "Django Views",
+      "description": "",
+      "picture": null,
+      "material_link": "https://youtube.com/example6",
+      "course": 2
+    }
+  },
+  {
+    "model": "materials.lesson",
+    "pk": 7,
+    "fields": {
+      "title": "NumPy основы",
+      "description": "",
+      "picture": null,
+      "material_link": "https://youtube.com/example7",
+      "course": 3
+    }
+  },
+  {
+    "model": "materials.lesson",
+    "pk": 8,
+    "fields": {
+      "title": "Pandas для анализа",
+      "description": "",
+      "picture": null,
+      "material_link": "https://youtube.com/example8",
+      "course": 3
+    }
+  },
+  {
+    "model": "materials.lesson",
+    "pk": 9,
+    "fields": {
+      "title": "Введение в ML",
+      "description": "",
+      "picture": null,
+      "material_link": "https://youtube.com/example9",
+      "course": 3
+    }
+  },
+  {
+    "model": "users.payment",
+    "pk": 1,
+    "fields": {
+      "user": 1,
+      "paid_course": 1,
+      "paid_lesson": null,
+      "amount": "1000.00",
+      "payment_method": "cash",
+      "payment_date": "2025-04-01"
+    }
+  },
+  {
+    "model": "users.payment",
+    "pk": 2,
+    "fields": {
+      "user": 1,
+      "paid_course": null,
+      "paid_lesson": 4,
+      "amount": "350.00",
+      "payment_method": "transfer",
+      "payment_date": "2025-04-05"
+    }
+  },
+  {
+    "model": "users.payment",
+    "pk": 3,
+    "fields": {
+      "user": 2,
+      "paid_course": 2,
+      "paid_lesson": null,
+      "amount": "1200.00",
+      "payment_method": "cash",
+      "payment_date": "2025-04-06"
+    }
+  },
+  {
+    "model": "users.payment",
+    "pk": 4,
+    "fields": {
+      "user": 2,
+      "paid_course": null,
+      "paid_lesson": 9,
+      "amount": "400.00",
+      "payment_method": "transfer",
+      "payment_date": "2025-04-08"
+    }
+  },
+  {
+    "model": "users.payment",
+    "pk": 5,
+    "fields": {
+      "user": 1,
+      "paid_course": null,
+      "paid_lesson": 2,
+      "amount": "300.00",
+      "payment_method": "cash",
+      "payment_date": "2025-04-10"
+    }
+  },
+  {
+    "model": "users.payment",
+    "pk": 6,
+    "fields": {
+      "user": 2,
+      "paid_course": 3,
+      "paid_lesson": null,
+      "amount": "1500.00",
+      "payment_method": "cash",
+      "payment_date": "2025-04-15"
+    }
+  },
+  {
+    "model": "users.payment",
+    "pk": 7,
+    "fields": {
+      "user": 1,
+      "paid_course": null,
+      "paid_lesson": 6,
+      "amount": "400.00",
+      "payment_method": "transfer",
+      "payment_date": "2025-04-18"
+    }
+  }
+]
