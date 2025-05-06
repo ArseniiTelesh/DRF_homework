@@ -9,7 +9,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = '__all__'
+        fields = ("id", "email", "password", "phone_number", "city", "payments", "is_active", "is_staff", "is_superuser")
 
     def get_payments(self, obj):
         payments = obj.payment_set.all()
