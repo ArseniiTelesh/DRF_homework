@@ -23,3 +23,16 @@ class PaymentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Payment
         fields = '__all__'
+
+
+class PublicUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ("id", "email", "phone_number", "city", "avatar", "is_active")
+
+
+class PrivateUserSerializer(UserSerializer):
+    class Meta:
+        model = User
+        fields = ("id",  "email", "password", "phone_number", "city", "avatar",
+                 "payments", "is_active", "is_staff", "is_superuser")
