@@ -34,3 +34,19 @@ class Lesson(models.Model):
     class Meta:
         verbose_name = 'Урок'
         verbose_name_plural = 'Уроки'
+
+
+class Subscription(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, related_name="subscription_user",
+                              verbose_name="пользователь", **NULLABLE)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name="course", verbose_name="Курс")
+    is_active = models.BooleanField(default=False, verbose_name='Подписка активна')
+
+    def __str__(self):
+        return f"{self.user} подписан на {self.course}"
+
+    class Meta:
+        verbose_name = 'Подписка'
+        verbose_name_plural = 'Подписки'
+        # Уникальность пары пользователь-курс
+        unique_together = ['user', 'course']
