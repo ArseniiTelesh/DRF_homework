@@ -11,3 +11,6 @@ pillow==11.2.1
 
 phonenumbers==9.0.4
 django-phonenumber-field==8.1.0
+
+stripe==14.1.0
+forex-python==1.9.2
