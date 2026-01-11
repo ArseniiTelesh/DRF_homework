@@ -43,6 +43,9 @@ class Payment(models.Model):
     amount = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Сумма оплаты')
     payment_method = models.CharField(max_length=20, choices=PAYMENT_METHOD_CHOICES, verbose_name='Способ оплаты')
 
+    session_id = models.CharField(max_length=255, verbose_name="Id сессии", **NULLABLE)
+    link_payment = models.URLField(max_length=800, verbose_name="Ссылка на оплату", **NULLABLE)
+
     def __str__(self):
         return f"{self.user} - {self.amount} ({self.payment_date})"
 
