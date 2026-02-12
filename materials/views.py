@@ -1,5 +1,4 @@
-from django.shortcuts import render
-from rest_framework import viewsets, generics
+from rest_framework import viewsets, generics, status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -7,6 +6,7 @@ from rest_framework.views import APIView
 from materials.models import Course, Lesson, Subscription
 from materials.paginators import LessonPaginator
 from materials.serializers import CourseSerializer, LessonSerializer, SubscriptionSerializer
+from materials.tasks import send_course_update_notification
 from users.permissions import IsModer, IsOwner
 
 
@@ -28,6 +28,14 @@ class CourseViewSet(viewsets.ModelViewSet):
         course = serializer.save()
         course.owner = self.request.user
         course.save()
+
+    def perform_update(self, serializer):
+        """
+        Сохраняем курс и запускаем асинхронную рассылку уведомлений
+        """
+        course = serializer.save()
+        send_course_update_notification.delay(course.id)
+        print(f"Задача на рассылку уведомлений по курсу {course.id} запущена")
 
 
 #########################################################
@@ -78,17 +86,38 @@ class SubscriptionAPIView(APIView):
     def post(self, request, *args, **kwargs):
         user = request.user
         course_id = request.data.get('course_id')
+        if not course_id:
+            return Response(
+                {"error": "Не указан ID курса"},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
         course_item = generics.get_object_or_404(Course, id=course_id)
-        subs_item = Subscription.objects.filter(user=user, course=course_item)
-        if subs_item.exists():
-            subs_item.delete()
-            message = 'подписка удалена'
+
+        subscription, created = Subscription.objects.get_or_create(
+            user=user,
+            course=course_item,
+            defaults={'is_active': True}
+        )
+
+        if not created:
+            subscription.is_active = not subscription.is_active
+            subscription.save()
+            message = 'подписка отключена' if not subscription.is_active else 'подписка активирована'
         else:
-            Subscription.objects.create(user=user, course=course_item)
-            message = 'подписка добавлена'
-        return Response({"message": message})
+            message = 'подписка создана'
+
+        return Response({
+            "message": message,
+            "course_id": course_id,
+            "is_active": subscription.is_active,
+            "subscription_id": subscription.id,
+        })
 
 
 class SubscriptionListAPIView(generics.ListAPIView):
     serializer_class = SubscriptionSerializer
-    queryset = Subscription.objects.all()
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        return Subscription.objects.filter(user=self.request.user)
