@@ -11,5 +11,5 @@ class LinkValidator:
     def __call__(self, value):
         reg = re.compile('youtube.com')
         tmp_val = dict(value).get(self.field)
-        if not bool(reg.match(tmp_val)):
+        if not bool(reg.search(tmp_val)):
             raise ValidationError('Можно использовать только URL Ютуба')
